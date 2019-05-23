@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28917.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{AC88D4B4-2293-4EC3-927B-A109CDA521DE}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Bernsrite.Yahoo.Groups", "Bernsrite.Yahoo.Groups\Bernsrite.Yahoo.Groups.fsproj", "{BFAD0FA3-BEBD-4C84-A717-0A0D5D030E0C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC88D4B4-2293-4EC3-927B-A109CDA521DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC88D4B4-2293-4EC3-927B-A109CDA521DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC88D4B4-2293-4EC3-927B-A109CDA521DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC88D4B4-2293-4EC3-927B-A109CDA521DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFAD0FA3-BEBD-4C84-A717-0A0D5D030E0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFAD0FA3-BEBD-4C84-A717-0A0D5D030E0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFAD0FA3-BEBD-4C84-A717-0A0D5D030E0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFAD0FA3-BEBD-4C84-A717-0A0D5D030E0C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0707FC64-A711-4CC6-B718-B6DDB88B0FFE}
+	EndGlobalSection
+EndGlobal
