@@ -17,45 +17,13 @@ type SessionApi() =
 
     /// Logs into the Yahoo using the given user name and password. This does not
     /// work with an account that has two-factor authentication enabled.
-    member __.LoginAsync(userName : string, password: string) =
-
-        async {
-
-                // get unique session values from Yahoo's login page
-            let! html =
-                "https://login.yahoo.com"
-                    |> client.GetStringAsync
-                    |> await
-            let formInputValueMap =
-                Authentication.getFormInputValues html
-
-                // submit user name and get new session values from password page
-            let! location =
-                Authentication.submitUserName
-                    client
-                    formInputValueMap
-                    userName
-            let! html =
-                location
-                    |> client.GetStringAsync
-                    |> await
-            let formInputValueMap =
-                Authentication.getFormInputValues html
-
-                // submit password
-            do!
-                Authentication.submitPassword
-                    client
-                    formInputValueMap
-                    location
-                    password
-
-        } |> Async.StartAsTask
+    member __.LoginAsync(userName, password) =
+        Authentication.loginAsync client userName password
 
     /// Logs into the Yahoo using the given user name and password. This does not
     /// work with an account that has two-factor authentication enabled.
-    member this.Login(userName, password) =
-        this.LoginAsync(userName, password).Result
+    member __.Login(userName, password) =
+        Authentication.login client userName password
 
     interface IDisposable with
 

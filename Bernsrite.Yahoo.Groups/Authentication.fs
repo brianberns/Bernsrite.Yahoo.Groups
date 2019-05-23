@@ -20,7 +20,7 @@ module Option =
 module Authentication =
 
     /// Extracts a form's input values from the given HTML.
-    let getFormInputValues html =
+    let private getFormInputValues html =
         let doc = HtmlDocument()
         doc.LoadHtml(html)
         let formNode = doc.DocumentNode.SelectSingleNode("//form")
@@ -40,7 +40,7 @@ module Authentication =
 
     /// Sends the given user name to Yahoo for authentication and answers
     /// the URL of the next page in the process.
-    let submitUserName
+    let private submitUserName
         (client : HttpClient)
         (formInputValueMap : Map<_,_>)
         userName =
@@ -78,10 +78,11 @@ module Authentication =
         }
 
     /// Sends the given password to the given location to complete the login process.
-    let submitPassword
+    let private submitPassword
         (client : HttpClient)
         (formInputValueMap : Map<_,_>)
-        (location : string) password =
+        (location : string)
+        password =
 
         async {
 
@@ -108,3 +109,48 @@ module Authentication =
             if response.RequestMessage.RequestUri.ToString().StartsWith("https://login.yahoo.com") then
                 failwith "Invalid password"
         }
+
+    /// Logs into the Yahoo using the given user name and password. This does not
+    /// work with an account that has two-factor authentication enabled.
+    let loginAsync
+        (client : HttpClient)
+        userName
+        password =
+
+        async {
+
+                // get unique session values from Yahoo's login page
+            let! html =
+                "https://login.yahoo.com"
+                    |> client.GetStringAsync
+                    |> await
+            let formInputValueMap =
+                getFormInputValues html
+
+                // submit user name and get new session values from password page
+            let! location =
+                submitUserName
+                    client
+                    formInputValueMap
+                    userName
+            let! html =
+                location
+                    |> client.GetStringAsync
+                    |> await
+            let formInputValueMap =
+                getFormInputValues html
+
+                // submit password
+            do!
+                submitPassword
+                    client
+                    formInputValueMap
+                    location
+                    password
+
+        } |> Async.StartAsTask
+
+    /// Logs into the Yahoo using the given user name and password. This does not
+    /// work with an account that has two-factor authentication enabled.
+    let login client userName password =
+        (loginAsync client userName password).Result
