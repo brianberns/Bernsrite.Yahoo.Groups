@@ -31,6 +31,7 @@ type HtmlInnerTextConverter() =
             :?> string
             |> doc.LoadHtml
         doc.DocumentNode.InnerText
+            |> WebUtility.HtmlDecode
 
     override __.WriteJson(_ : JsonWriter, _ : string, _ : JsonSerializer) : unit =
         raise <| NotImplementedException()

@@ -15,7 +15,7 @@ type MessageSummary =
         Email : string
 
         [<JsonProperty("date"); JsonConverter(typeof<DateTimeConverter>)>]
-        DateTime : DateTime
+        ReceivedTime : DateTime
 
         [<JsonConverter(typeof<HtmlEntityConverter>)>]
         Summary : string
@@ -33,9 +33,9 @@ type Message =
         Subject : string
 
         [<JsonProperty("postDate"); JsonConverter(typeof<DateTimeConverter>)>]
-        DateTime : DateTime
+        SentTime : DateTime
 
-        [<JsonProperty("MessageBody")>]
+        [<JsonProperty("MessageBody"); JsonConverter(typeof<HtmlInnerTextConverter>)>]
         Body : string
     }
 
