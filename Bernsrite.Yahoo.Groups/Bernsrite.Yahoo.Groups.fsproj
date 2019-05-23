@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Authentication.fs" />
     <Compile Include="JsonConverters.fs" />
     <Compile Include="Api.fs" />
   </ItemGroup>
