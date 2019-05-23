@@ -19,11 +19,16 @@ type Group =
 
 type Message =
     {
+        [<JsonProperty("messageId")>]
         Id : int
+
+        [<JsonConverter(typeof<HtmlEntityConverter>)>]
         Subject : string
         Author : string
         YahooAlias : string
         Email : string
+
+        [<JsonConverter(typeof<HtmlEntityConverter>)>]
         Summary : string
     }
 
