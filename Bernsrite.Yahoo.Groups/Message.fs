@@ -4,10 +4,9 @@ open System
 
 open Newtonsoft.Json
 
-type Message =
+type MessageSummary =
     {
-        [<JsonProperty("messageId")>]
-        Id : int
+        MessageId : int
 
         [<JsonConverter(typeof<HtmlEntityConverter>)>]
         Subject : string
@@ -22,17 +21,48 @@ type Message =
         Summary : string
     }
 
+type Message =
+    {
+        [<JsonProperty("MsgId")>]
+        MessageId : int
+
+        [<JsonProperty("AuthorName")>]
+        Author : string
+
+        [<JsonConverter(typeof<HtmlEntityConverter>)>]
+        Subject : string
+
+        [<JsonProperty("postDate"); JsonConverter(typeof<DateTimeConverter>)>]
+        DateTime : DateTime
+
+        [<JsonProperty("MessageBody")>]
+        Body : string
+    }
+
 module Message =
 
-    /// Fetches the most recent messages posted to a group.
-    let getMessagesAsync numMessages context =
-        Json.getObjectAsyncExtra<Message[], _>
+    /// Fetches summaries of the most recent messages posted to a group.
+    let getMessageSummariesAsync numMessages context =
+        Json.getObjectAsyncExtra<MessageSummary[], _>
             "https://groups.yahoo.com/api/v1/groups/%s/messages?count=%d"
             context
             numMessages
             "ygData.messages"
                 |> Async.StartAsTask
 
-    /// Fetches the most recent messages posted to a group.
-    let getMessages numMessages context =
-        (context |> getMessagesAsync numMessages).Result
+    /// Fetches summaries of the most recent messages posted to a group.
+    let getMessageSummaries numMessages context =
+        (context |> getMessageSummariesAsync numMessages).Result
+
+    /// Fetches a message.
+    let getMessageAsync messageId context =
+        Json.getObjectAsyncExtra<Message, _>
+            "https://groups.yahoo.com/api/v1/groups/%s/messages/%d"
+            context
+            messageId
+            "ygData"
+                |> Async.StartAsTask
+
+    /// Fetches a message.
+    let getMessage messageId context =
+        (context |> getMessageAsync messageId).Result

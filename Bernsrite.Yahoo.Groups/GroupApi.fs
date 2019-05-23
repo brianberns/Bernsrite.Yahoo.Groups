@@ -14,10 +14,18 @@ type GroupApi(sessionApi : SessionApi, groupName) =
     member __.GetGroup() =
         context |> Group.get
 
-    /// Fetches the most recent messages posted to a group.
-    member __.GetMessagesAsync(numMessages) =
-        context |> Message.getMessagesAsync numMessages
+    /// Fetches summaries of the most recent messages posted to a group.
+    member __.GetMessageSummariesAsync(numMessages) =
+        context |> Message.getMessageSummariesAsync numMessages
 
-    /// Fetches the most recent messages posted to a group.
-    member __.GetMessages(numMessages) =
-        context |> Message.getMessages numMessages
+    /// Fetches summaries of the most recent messages posted to a group.
+    member __.GetMessageSummaries(numMessages) =
+        context |> Message.getMessageSummaries numMessages
+
+    /// Fetches a message.
+    member __.GetMessageAsync(messageId) =
+        context |> Message.getMessageAsync messageId
+
+    /// Fetches a message.
+    member __.GetMessage(messageId) =
+        context |> Message.getMessage messageId

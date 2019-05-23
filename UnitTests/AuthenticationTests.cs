@@ -17,9 +17,9 @@ namespace Bernsrite.Yahoo.Groups
             api.Login(userName, password);
 
             var groupApi = new GroupApi(api, groupName);
-            var numMessages = 10;
-            var messages = groupApi.GetMessages(numMessages);
-            Assert.AreEqual(numMessages, messages.Length);
+            var numSummaries = 10;
+            var summaries = groupApi.GetMessageSummaries(numSummaries);
+            Assert.AreEqual(numSummaries, summaries.Length);
         }
 
         static Exception GetInnermostException(Exception ex)

@@ -80,7 +80,7 @@ module Group =
     /// Fetches information about a group.
     let getAsync context =
         Json.getObjectAsync<Group>
-            "https://groups.yahoo.com/api/v1/groups/%s/"
+            "https://groups.yahoo.com/api/v1/groups/%s"
             context
             "ygData"
                 |> Async.StartAsTask
