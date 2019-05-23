@@ -3,7 +3,6 @@
 open System
 
 open Newtonsoft.Json
-open Newtonsoft.Json.Linq
 
 type Message =
     {
@@ -27,18 +26,12 @@ module Message =
 
     /// Fetches the most recent messages posted to a group.
     let getMessagesAsync numMessages context =
-        async {
-            let! json =
-                sprintf "https://groups.yahoo.com/api/v1/groups/%s/messages?count=%d"
-                    context.GroupName
-                    numMessages
-                    |> context.Client.GetStringAsync
-                    |> await
-            return JObject
-                .Parse(json)
-                .SelectToken("ygData.messages")
-                .ToObject<Message[]>()
-        } |> Async.StartAsTask
+        Json.getObjectAsyncExtra<Message[], _>
+            "https://groups.yahoo.com/api/v1/groups/%s/messages?count=%d"
+            context
+            numMessages
+            "ygData.messages"
+                |> Async.StartAsTask
 
     /// Fetches the most recent messages posted to a group.
     let getMessages numMessages context =
