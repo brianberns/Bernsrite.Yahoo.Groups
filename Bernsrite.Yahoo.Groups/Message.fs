@@ -42,4 +42,4 @@ module Message =
 
     /// Fetches the most recent messages posted to a group.
     let getMessages numMessages context =
-        (getMessagesAsync context numMessages).Result
+        (context |> getMessagesAsync numMessages).Result
