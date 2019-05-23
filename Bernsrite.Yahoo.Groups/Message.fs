@@ -26,7 +26,7 @@ type Message =
 module Message =
 
     /// Fetches the most recent messages posted to a group.
-    let getMessagesAsync context numMessages =
+    let getMessagesAsync numMessages context =
         async {
             let! json =
                 sprintf "https://groups.yahoo.com/api/v1/groups/%s/messages?count=%d"
@@ -41,5 +41,5 @@ module Message =
         } |> Async.StartAsTask
 
     /// Fetches the most recent messages posted to a group.
-    let getMessages context numMessages =
+    let getMessages numMessages context =
         (getMessagesAsync context numMessages).Result

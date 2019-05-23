@@ -79,7 +79,7 @@ type GroupApi(sessionApi : SessionApi, groupName) =
 
     /// Fetches the most recent messages posted to a group.
     member __.GetMessagesAsync(numMessages) =
-        Message.getMessagesAsync context numMessages
+        context |> Message.getMessagesAsync numMessages
 
     /// Fetches the most recent messages posted to a group.
     member this.GetMessages(numMessages) =
