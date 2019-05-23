@@ -6,7 +6,7 @@ namespace Bernsrite.Yahoo.Groups
     [TestClass]
     public class PublicGroupTests
     {
-        private static string groupName = "concatenative";
+        private static readonly string groupName = "concatenative";
 
         [TestMethod]
         public void GetGroup()

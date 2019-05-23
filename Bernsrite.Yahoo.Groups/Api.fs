@@ -3,38 +3,6 @@ namespace Bernsrite.Yahoo.Groups
 open System
 open System.Net.Http
 
-open Newtonsoft.Json
-open Newtonsoft.Json.Linq
-
-type Group =
-    {
-        Name : string
-
-        [<JsonConverter(typeof<HtmlEntityConverter>)>]
-        Title : string
-
-        [<JsonConverter(typeof<HtmlInnerTextConverter>)>]
-        Description : string
-    }
-
-type Message =
-    {
-        [<JsonProperty("messageId")>]
-        Id : int
-
-        [<JsonConverter(typeof<HtmlEntityConverter>)>]
-        Subject : string
-        Author : string
-        YahooAlias : string
-        Email : string
-
-        [<JsonProperty("date"); JsonConverter(typeof<DateTimeConverter>)>]
-        DateTime : DateTime
-
-        [<JsonConverter(typeof<HtmlEntityConverter>)>]
-        Summary : string
-    }
-
 /// Yahoo Groups API.
 type Api() =
 
@@ -88,37 +56,19 @@ type Api() =
 
     /// Fetches the group with the given name.
     member __.GetGroupAsync(groupName) =
-        async {
-            let! json =
-                sprintf "https://groups.yahoo.com/api/v1/groups/%s/" groupName
-                    |> client.GetStringAsync
-                    |> await
-            return JObject
-                .Parse(json)
-                .["ygData"]
-                .ToObject<Group>()
-        } |> Async.StartAsTask
+        Group.getAsync client groupName
 
     /// Fetches the group with the given name.
-    member this.GetGroup(groupName) =
-        this.GetGroupAsync(groupName).Result
+    member __.GetGroup(groupName) =
+        Group.get client groupName
 
     /// Fetches the most recent messages posted to the given group.
     member __.GetMessagesAsync(groupName, numMessages) =
-        async {
-            let! json =
-                sprintf "https://groups.yahoo.com/api/v1/groups/%s/messages?count=%d" groupName numMessages
-                    |> client.GetStringAsync
-                    |> await
-            return JObject
-                .Parse(json)
-                .SelectToken("ygData.messages")
-                .ToObject<Message[]>()
-        } |> Async.StartAsTask
+        Message.getMessagesAsync client groupName numMessages
 
     /// Fetches the most recent messages posted to the given group.
-    member this.GetMessages(groupName, numMessages) =
-        this.GetMessagesAsync(groupName, numMessages).Result
+    member __.GetMessages(groupName, numMessages) =
+        Message.getMessages client groupName numMessages
 
     interface IDisposable with
 
