@@ -1,11 +1,25 @@
 ﻿namespace Bernsrite.Yahoo.Groups
 
-open System
 open System.Net.Http
 
 open Newtonsoft.Json
 open Newtonsoft.Json.Linq
 
+type GroupContext =
+    {
+        Client : HttpClient
+        GroupName : string
+    }
+
+module GroupContext =
+
+    let create client groupName =
+        {
+            Client = client
+            GroupName = groupName
+        }
+
+/// Information about a group.
 type Group =
     {
         Name : string
@@ -19,12 +33,12 @@ type Group =
 
 module Group =
     
-    /// Fetches the group with the given name.
-    let getAsync (client : HttpClient) groupName =
+    /// Fetches information about a group.
+    let getAsync context =
         async {
             let! json =
-                sprintf "https://groups.yahoo.com/api/v1/groups/%s/" groupName
-                    |> client.GetStringAsync
+                sprintf "https://groups.yahoo.com/api/v1/groups/%s/" context.GroupName
+                    |> context.Client.GetStringAsync
                     |> await
             return JObject
                 .Parse(json)
@@ -32,6 +46,6 @@ module Group =
                 .ToObject<Group>()
         } |> Async.StartAsTask
 
-    /// Fetches the group with the given name.
-    let get client groupName =
-        (getAsync client groupName).Result
+    /// Fetches information about a group.
+    let get context =
+        (getAsync context).Result

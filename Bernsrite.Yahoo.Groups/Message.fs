@@ -1,7 +1,6 @@
 ﻿namespace Bernsrite.Yahoo.Groups
 
 open System
-open System.Net.Http
 
 open Newtonsoft.Json
 open Newtonsoft.Json.Linq
@@ -26,12 +25,14 @@ type Message =
 
 module Message =
 
-    /// Fetches the most recent messages posted to the given group.
-    let getMessagesAsync (client : HttpClient) groupName numMessages =
+    /// Fetches the most recent messages posted to a group.
+    let getMessagesAsync context numMessages =
         async {
             let! json =
-                sprintf "https://groups.yahoo.com/api/v1/groups/%s/messages?count=%d" groupName numMessages
-                    |> client.GetStringAsync
+                sprintf "https://groups.yahoo.com/api/v1/groups/%s/messages?count=%d"
+                    context.GroupName
+                    numMessages
+                    |> context.Client.GetStringAsync
                     |> await
             return JObject
                 .Parse(json)
@@ -39,6 +40,6 @@ module Message =
                 .ToObject<Message[]>()
         } |> Async.StartAsTask
 
-    /// Fetches the most recent messages posted to the given group.
-    let getMessages client groupName numMessages =
-        (getMessagesAsync client groupName numMessages).Result
+    /// Fetches the most recent messages posted to a group.
+    let getMessages context numMessages =
+        (getMessagesAsync context numMessages).Result

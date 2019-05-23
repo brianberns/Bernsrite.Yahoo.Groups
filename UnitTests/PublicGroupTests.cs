@@ -6,13 +6,13 @@ namespace Bernsrite.Yahoo.Groups
     [TestClass]
     public class PublicGroupTests
     {
-        private static readonly string groupName = "concatenative";
+        private const string groupName = "concatenative";
+        private static readonly GroupApi api = new GroupApi(new SessionApi(), groupName);
 
         [TestMethod]
         public void GetGroup()
         {
-            var api = new Api();
-            var group = api.GetGroup(groupName);
+            var group = api.GetGroup();
             Assert.AreEqual(groupName, group.Name);
             Assert.AreEqual("Discuss the concatenative variety of computer languages: Joy, Forth, Postscript", group.Title);
             Assert.IsTrue(group.Description.StartsWith("The best introduction to this subject is at the Joy homepage."));
@@ -21,9 +21,8 @@ namespace Bernsrite.Yahoo.Groups
         [TestMethod]
         public void GetMessages()
         {
-            var api = new Api();
             var numMessages = 10;
-            var messages = api.GetMessages(groupName, numMessages);
+            var messages = api.GetMessages(numMessages);
             Assert.AreEqual(numMessages, messages.Length);
 
             var message = messages[0];

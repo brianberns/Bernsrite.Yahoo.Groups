@@ -13,10 +13,12 @@ namespace Bernsrite.Yahoo.Groups
         [TestMethod]
         public void Login()
         {
-            var api = new Api();
+            var api = new SessionApi();
             api.Login(userName, password);
+
+            var groupApi = new GroupApi(api, groupName);
             var numMessages = 10;
-            var messages = api.GetMessages(groupName, numMessages);
+            var messages = groupApi.GetMessages(numMessages);
             Assert.AreEqual(numMessages, messages.Length);
         }
 
@@ -30,7 +32,7 @@ namespace Bernsrite.Yahoo.Groups
         [TestMethod]
         public void BadUserName()
         {
-            var api = new Api();
+            var api = new SessionApi();
             try
             {
                 api.Login("incorrect", password);
@@ -45,7 +47,7 @@ namespace Bernsrite.Yahoo.Groups
         [TestMethod]
         public void BadPassword()
         {
-            var api = new Api();
+            var api = new SessionApi();
             try
             {
                 api.Login(userName, "incorrect");
