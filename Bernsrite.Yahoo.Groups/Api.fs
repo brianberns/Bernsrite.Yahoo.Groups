@@ -28,6 +28,9 @@ type Message =
         YahooAlias : string
         Email : string
 
+        [<JsonProperty("date"); JsonConverter(typeof<DateTimeConverter>)>]
+        DateTime : DateTime
+
         [<JsonConverter(typeof<HtmlEntityConverter>)>]
         Summary : string
     }

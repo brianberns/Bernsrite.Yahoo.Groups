@@ -1,3 +1,4 @@
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bernsrite.Yahoo.Groups
@@ -32,6 +33,7 @@ namespace Bernsrite.Yahoo.Groups
             Assert.AreEqual("", message.YahooAlias);
             Assert.IsTrue(message.Email.StartsWith("crglur@"));
             Assert.AreEqual("]> Where's formal proof of Haskell's claim to be able to avoid the need to ]> tell the machine what to do step-by-step, and just provide it with a ]>", message.Summary);
+            Assert.AreEqual(new DateTime(2015, 3, 9), message.DateTime.Date);
         }
     }
 }
