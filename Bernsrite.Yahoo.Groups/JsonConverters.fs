@@ -43,8 +43,8 @@ type DateTimeConverter() =
 
     override __.ReadJson(reader, _, _, _, _) =
         let duration =
-            reader.Value
-                :?> int64
+            reader.Value.ToString()
+                |> Int64.Parse
                 |> float
                 |> TimeSpan.FromSeconds
         start.Add(duration)
