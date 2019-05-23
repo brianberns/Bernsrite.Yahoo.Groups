@@ -17,12 +17,6 @@ module Option =
         if isNull nullable then None
         else Some nullable
 
-type UserNameResult =
-    {
-        Error : bool
-        Location : string
-    }
-
 module Authentication =
 
     /// Extracts a form's input values from the given HTML.
@@ -38,6 +32,11 @@ module Authentication =
                         let nameAttr = node.Attributes.["name"]
                         nameAttr.Value, valueAttr.Value))
             |> Map.ofSeq
+
+    /// JSON object returned by submitting user name.
+    type private UserNameResult(error : bool, location : string) =
+        member __.Error = error
+        member __.Location = location
 
     /// Sends the given user name to Yahoo for authentication and answers
     /// the URL of the next page in the process.

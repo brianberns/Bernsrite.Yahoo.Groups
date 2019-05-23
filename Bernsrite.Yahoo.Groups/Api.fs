@@ -3,8 +3,6 @@ namespace Bernsrite.Yahoo.Groups
 open System
 open System.Net.Http
 
-open HtmlAgilityPack
-
 open Newtonsoft.Json
 open Newtonsoft.Json.Linq
 
