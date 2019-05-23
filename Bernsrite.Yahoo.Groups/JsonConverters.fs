@@ -2,12 +2,12 @@
 
 open System
 open System.Net
-open System.Net.Http
 
 open HtmlAgilityPack
 
 open Newtonsoft.Json
 
+/// Encodes/decodes HTML entities.
 type HtmlEntityConverter() =
     inherit JsonConverter<string>()
 
@@ -21,6 +21,7 @@ type HtmlEntityConverter() =
             |> WebUtility.HtmlEncode
             |> writer.WriteRawValue
 
+/// Extracts text from HTML.
 type HtmlInnerTextConverter() =
     inherit JsonConverter<string>()
 
@@ -34,6 +35,7 @@ type HtmlInnerTextConverter() =
     override __.WriteJson(_ : JsonWriter, _ : string, _ : JsonSerializer) : unit =
         raise <| NotImplementedException()
 
+/// Converts date-times from/to seconds since 1/1/1970.
 type DateTimeConverter() =
     inherit JsonConverter<DateTime>()
 
