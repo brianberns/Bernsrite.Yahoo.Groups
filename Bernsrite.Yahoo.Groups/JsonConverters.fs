@@ -29,7 +29,7 @@ type HtmlInnerTextConverter() =
         reader.Value
             :?> string
             |> doc.LoadHtml
-        doc.ParsedText
+        doc.DocumentNode.InnerText
             |> WebUtility.HtmlDecode
 
     override __.WriteJson(_ : JsonWriter, _ : string, _ : JsonSerializer) : unit =

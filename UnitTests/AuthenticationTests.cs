@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bernsrite.Yahoo.Groups
 {
     [TestClass]
-    public class ApiTests
+    public class AuthenticationTests
     {
         static readonly string userName = "...";
         static readonly string password = "...";
