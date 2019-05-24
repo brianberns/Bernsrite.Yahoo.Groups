@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Brian Berns</Authors>
+    <Company />
+    <Product />
+    <Description>.NET API for Yahoo! Groups</Description>
+    <Copyright>2019</Copyright>
+    <Version>0.6.0</Version>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/brianberns/Bernsrite.Yahoo.Groups</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +25,13 @@
     <PackageReference Include="HtmlAgilityPack" Version="1.11.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
