@@ -6,6 +6,7 @@ namespace Bernsrite.Yahoo.Groups
     [TestClass]
     public class AuthenticationTests
     {
+        /* Put credentials for your private group here */
         static readonly string userName = "...";
         static readonly string password = "...";
         static readonly string groupName = "...";
