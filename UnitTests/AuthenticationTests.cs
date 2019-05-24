@@ -1,4 +1,6 @@
 using System;
+using System.Net.Http;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bernsrite.Yahoo.Groups
@@ -57,6 +59,26 @@ namespace Bernsrite.Yahoo.Groups
             catch (Exception ex)
             {
                 Assert.AreEqual("Invalid password", GetInnermostException(ex).Message);
+            }
+        }
+
+        [TestMethod]
+        public void Unauthorized()
+        {
+            var api = new SessionApi();
+            api.Login(userName, password);
+
+            var groupApi = new GroupApi(api, "Private_Chat_Group");
+            try
+            {
+                var numSummaries = 10;
+                var summaries = groupApi.GetMessageSummaries(numSummaries);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                ex = GetInnermostException(ex);
+                Assert.IsTrue(ex.Message.Contains("Unauthorized"));
             }
         }
     }
