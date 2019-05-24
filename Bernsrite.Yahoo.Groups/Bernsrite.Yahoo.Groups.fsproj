@@ -7,9 +7,11 @@
     <Product />
     <Description>.NET API for Yahoo! Groups</Description>
     <Copyright>2019</Copyright>
-    <Version>0.6.0</Version>
+    <Version>0.6.1</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/brianberns/Bernsrite.Yahoo.Groups</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/brianberns/Bernsrite.Yahoo.Groups</PackageProjectUrl>
+    <PackageIconUrl>https://avatars2.githubusercontent.com/u/11883138</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
